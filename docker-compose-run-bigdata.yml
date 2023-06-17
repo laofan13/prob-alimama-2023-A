@@ -1,0 +1,158 @@
+
+version: '3.6'
+
+services:
+  node-1:
+    container_name: node-1
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/alimama-2023:v0
+    cpuset: "0-3"
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 80G 
+        reservations:
+          cpus: '4.0'
+          memory: 80G
+    volumes:
+      - "./node-1:/work"
+    environment:
+       - NODE_ID=1
+       - NODE_NUM=6
+       - MEMORY=80G
+       - CPU=4C
+    depends_on:
+      - etcd
+    working_dir: /work
+    command: ["bash", "./run.sh"]
+  node-2:
+    container_name: node-2
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/alimama-2023:v0
+    cpuset: "4-7"
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 80G 
+        reservations:
+          cpus: '4.0'
+          memory: 80G
+    volumes:
+      - "./node-2:/work"
+    environment:
+       - NODE_ID=2
+       - NODE_NUM=6
+       - MEMORY=80G
+       - CPU=4C
+    depends_on:
+      - etcd
+    working_dir: /work
+    command: ["bash", "./run.sh"]
+  node-3:
+    container_name: node-3
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/alimama-2023:v0
+    cpuset: "8-11"
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 80G 
+        reservations:
+          cpus: '4.0'
+          memory: 80G
+    volumes:
+      - "./node-3:/work"
+    environment:
+       - NODE_ID=3
+       - NODE_NUM=6
+       - MEMORY=80G
+       - CPU=4C
+    depends_on:
+      - etcd
+    working_dir: /work
+    command: ["bash", "./run.sh"]
+  node-4:
+    container_name: node-4
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/alimama-2023:v0
+    cpuset: "12-15"
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 80G 
+        reservations:
+          cpus: '4.0'
+          memory: 80G
+    volumes:
+      - "./node-4:/work"
+    environment:
+       - NODE_ID=4
+       - NODE_NUM=6
+       - MEMORY=80G
+       - CPU=4C
+    depends_on:
+      - etcd
+    working_dir: /work
+    command: ["bash", "./run.sh"]
+  node-5:
+    container_name: node-5
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/alimama-2023:v0
+    cpuset: "16-19"
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 80G 
+        reservations:
+          cpus: '4.0'
+          memory: 80G
+    volumes:
+      - "./node-5:/work"
+    environment:
+       - NODE_ID=5
+       - NODE_NUM=6
+       - MEMORY=80G
+       - CPU=4C
+    depends_on:
+      - etcd
+    working_dir: /work
+    command: ["bash", "./run.sh"]
+  node-6:
+    container_name: node-6
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/alimama-2023:v0
+    cpuset: "20-23"
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 80G 
+        reservations:
+          cpus: '4.0'
+          memory: 80G
+    volumes:
+      - "./node-6:/work"
+    environment:
+       - NODE_ID=6
+       - NODE_NUM=6
+       - MEMORY=80G
+       - CPU=4C
+    depends_on:
+      - etcd
+    working_dir: /work
+    command: ["bash", "./run.sh"]
+
+
+  etcd:
+    container_name: etcd
+    cpuset: "24-25"
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/etcd:3.5
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+
+
+networks:
+  default:
+    name: alimama
+    internal: true
+    external: false
+

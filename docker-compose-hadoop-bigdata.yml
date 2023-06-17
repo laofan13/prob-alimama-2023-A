@@ -1,0 +1,95 @@
+version: "3"
+
+services:
+  namenode:
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/hadoop-namenode:2.1.1-hadoop3.3.1-java8
+    cpuset: "30-39"
+    container_name: namenode
+    restart: always
+    ports:
+      - 9870:9870
+      - 9000:9000
+        #volumes:
+        #- hadoop_namenode:/hadoop/dfs/name
+    working_dir: /app
+    environment:
+      - CLUSTER_NAME=test
+      - HOME=/app
+      - SPARK_HOME=/usr/local/lib/python3.7/dist-packages/pyspark
+      - HIVE_HOME=/hive/apache-hive-3.1.3-bin
+    env_file:
+      - ./hadoop.env
+
+  datanode:
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/hadoop-datanode:2.1.1-hadoop3.3.1-java8
+    cpuset: "30-39"
+    container_name: datanode
+    restart: always
+    ports:
+      - 9864:9864
+        #volumes:
+        #- hadoop_datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  resourcemanager:
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/hadoop-resourcemanager:2.1.1-hadoop3.3.1-java8
+    cpuset: "30-39"
+    container_name: resourcemanager
+    restart: always
+    ports:
+      - 8088:8088
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager:
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/hadoop-nodemanager:2.1.1-hadoop3.3.1-java8
+    cpuset: "30-39"
+    container_name: nodemanager
+    restart: always
+    ports:
+      - 8042:8042
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  historyserver:
+    image: public-images-registry.cn-hangzhou.cr.aliyuncs.com/public/hadoop-historyserver:2.1.1-hadoop3.3.1-java8
+    container_name: historyserver
+    cpuset: "30-39"
+    restart: always
+    ports:
+      - 8188:8188
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+        #volumes:
+        #- hadoop_historyserver:/hadoop/yarn/timeline
+    env_file:
+      - ./hadoop.env
+
+        #postgres:
+        #  image: postgres:latest
+        #  container_name: postgres13
+        #  restart: always
+        #  volumes:
+        #    - postgres_data:/var/lib/postgresql/data
+        #  ports:
+        #    - '5432:5432'
+        #  env_file:
+        #    - ./postgres.env
+
+        #volumes:
+        #hadoop_namenode:
+        #hadoop_datanode:
+        #hadoop_historyserver:
+  #postgres_data:
+networks:
+  default:
+    name: alimama
+    internal: true
+    external: false

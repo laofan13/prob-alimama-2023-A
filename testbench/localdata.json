@@ -1,0 +1,30 @@
+{
+	"benchmark_thread_num":  2,
+	"benchmark_no_check_data": true,
+	"request_slice_num": 1000,
+	"request_data_len": 16,
+	"start_load_duration_limit_ms" : 10000,
+	"switch_load_duration_limit_ms" : 1000,
+	"switch_load_qps_ratio" : 0.9,
+	"latency_limit": 30,
+	"failure_limit": 1,
+	"qps_limit"  : 50000,
+	"qps_step"  : 8000,
+	
+	"slice_size": 6400000,
+	"slice_cnt": 20,
+	"versions": [
+		{
+			"name": "model_2023_03_01_12_30_00",
+			"slices": [{"seed_a": 519846228}, {"seed_a": 2116338062}, {"seed_a": 112887879}, {"seed_a": 9840266}, {"seed_a": 942757574}, {"seed_a": 891830972}, {"seed_a": 1684109218}, {"seed_a": 606667222}, {"seed_a": 1226641571}, {"seed_a": 1843321624}, {"seed_a": 1876350282}, {"seed_a": 1272014626}, {"seed_a": 379167201}, {"seed_a": 1328559892}, {"seed_a": 880419832}, {"seed_a": 1647538180}, {"seed_a": 177204423}, {"seed_a": 1526227644}, {"seed_a": 561275212}, {"seed_a": 50847189}]
+		},
+		{
+			"name": "model_2023_03_01_13_00_00",
+			"slices": [{"seed_a": 2139975973}, {"seed_a": 1497149284}, {"seed_a": 494567278}, {"seed_a": 1472466148}, {"seed_a": 1483706400}, {"seed_a": 1087652925}, {"seed_a": 361994712}, {"seed_a": 1208604629}, {"seed_a": 2015377508}, {"seed_a": 1632946980}, {"seed_a": 564111186}, {"seed_a": 1273443222}, {"seed_a": 1063661343}, {"seed_a": 692896766}, {"seed_a": 95339101}, {"seed_a": 735741560}, {"seed_a": 363509107}, {"seed_a": 853951288}, {"seed_a": 1776253359}, {"seed_a": 1823509973}]
+		},
+		{
+			"name": "model_2023_03_01_13_30_00",
+			"slices": [{"seed_a": 2127681736}, {"seed_a": 202023585}, {"seed_a": 1772979215}, {"seed_a": 492587212}, {"seed_a": 1217726992}, {"seed_a": 1189935136}, {"seed_a": 1409119877}, {"seed_a": 871804826}, {"seed_a": 1964309046}, {"seed_a": 1310551980}, {"seed_a": 1012306466}, {"seed_a": 1812223875}, {"seed_a": 754985863}, {"seed_a": 327502768}, {"seed_a": 383399810}, {"seed_a": 891265832}, {"seed_a": 538656091}, {"seed_a": 2096580690}, {"seed_a": 775895452}, {"seed_a": 401971296}]
+		}
+	]
+}
